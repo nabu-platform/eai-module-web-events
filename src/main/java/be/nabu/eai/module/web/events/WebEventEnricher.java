@@ -45,7 +45,10 @@ public class WebEventEnricher implements EventEnricher {
 								if (object != null) {
 									// if we have a field called "sessionId", we enrich it
 									if (((ComplexContent) object).getType().get("sessionId") != null) {
-										((ComplexContent) object).set("sessionId", value + "@" + ip);
+										Object current = ((ComplexContent) object).get("sessionId");
+										if (current == null) {
+											((ComplexContent) object).set("sessionId", value + "@" + ip);
+										}
 									}
 								}
 							}
